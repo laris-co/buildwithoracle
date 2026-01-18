@@ -17,7 +17,12 @@ exclude = ["_worker.js", "_worker.js/**"]
 # Production routes - LIVE!
 routes = [
   { pattern = "buildwithoracle.com", custom_domain = true },
-  { pattern = "www.buildwithoracle.com", custom_domain = true }
+  { pattern = "www.buildwithoracle.com", custom_domain = true },
+  { pattern = "nat.buildwithoracle.com", custom_domain = true },
+  { pattern = "oracle.buildwithoracle.com", custom_domain = true },
+  { pattern = "sage.buildwithoracle.com", custom_domain = true },
+  { pattern = "arthur.buildwithoracle.com", custom_domain = true },
+  { pattern = "gemini.buildwithoracle.com", custom_domain = true }
 ]
 
 # Preview/Draft deployments auto-generate URLs like:
