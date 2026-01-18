@@ -14,11 +14,11 @@ binding = "ASSETS"
 [assets.serve]
 exclude = ["_worker.js", "_worker.js/**"]
 
-# Production route (after domain setup)
-# routes = [
-#   { pattern = "buildwithoracle.com", custom_domain = true },
-#   { pattern = "www.buildwithoracle.com", custom_domain = true }
-# ]
+# Production routes - LIVE!
+routes = [
+  { pattern = "buildwithoracle.com", custom_domain = true },
+  { pattern = "www.buildwithoracle.com", custom_domain = true }
+]
 
 # Preview/Draft deployments auto-generate URLs like:
 # buildwithoracle.<your-subdomain>.workers.dev
