@@ -1,0 +1,19 @@
+# Build with Oracle - Cloudflare Workers Config
+name = "buildwithoracle"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Production route (after domain setup)
+# routes = [
+#   { pattern = "buildwithoracle.com", custom_domain = true },
+#   { pattern = "www.buildwithoracle.com", custom_domain = true }
+# ]
+
+[site]
+bucket = "./dist"
+
+[build]
+command = "bun run build"
+
+# Preview/Draft deployments auto-generate URLs like:
+# buildwithoracle.<your-subdomain>.workers.dev
