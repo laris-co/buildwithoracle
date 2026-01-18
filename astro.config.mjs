@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
-import tailwindcss from '@astrojs/tailwind';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   output: 'server',
@@ -9,6 +9,8 @@ export default defineConfig({
       enabled: true
     }
   }),
-  integrations: [tailwindcss()],
+  vite: {
+    plugins: [tailwindcss()],
+  },
   site: 'https://buildwithoracle.com',
 });

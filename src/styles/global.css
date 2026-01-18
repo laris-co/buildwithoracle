@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+/* Oracle brand colors */
+@theme {
+  --color-oracle-50: #f0fdf4;
+  --color-oracle-100: #dcfce7;
+  --color-oracle-200: #bbf7d0;
+  --color-oracle-300: #86efac;
+  --color-oracle-400: #4ade80;
+  --color-oracle-500: #22c55e;
+  --color-oracle-600: #16a34a;
+  --color-oracle-700: #15803d;
+  --color-oracle-800: #166534;
+  --color-oracle-900: #14532d;
+}

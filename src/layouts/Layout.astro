@@ -1,4 +1,6 @@
 ---
+import '../styles/global.css';
+
 interface Props {
   title: string;
   description?: string;
@@ -21,13 +23,11 @@ const { title, description = "Build with Oracle - Human-AI Collaboration" } = As
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://build-with-oracle.com" />
+    <meta property="og:url" content="https://buildwithoracle.com" />
   </head>
   <body class="min-h-screen bg-gray-900 text-white">
     <slot />
   </body>
 </html>
 
-<style is:global>
-  @import 'tailwindcss';
-</style>
+
