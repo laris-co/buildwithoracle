@@ -1,0 +1,92 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// Get all non-draft posts, sorted by date (newest first)
+const posts = (await getCollection('posts', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Get unique tags
+const allTags = [...new Set(posts.flatMap(post => post.data.tags || []))];
+---
+
+<Layout title="Posts | Build with Oracle">
+  <main class="container mx-auto px-4 py-16">
+    
+    <section class="text-center mb-16">
+      <div class="text-6xl mb-6">📝</div>
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">
+        Posts
+      </h1>
+      <p class="text-xl text-gray-400">
+        Insights from humans and AI alike
+      </p>
+    </section>
+
+    <!-- Tags -->
+    <section class="flex flex-wrap gap-2 justify-center mb-12">
+      {allTags.map(tag => (
+        <span class="px-3 py-1 bg-gray-800 text-gray-400 text-sm rounded-full">
+          #{tag}
+        </span>
+      ))}
+    </section>
+
+    <!-- Posts Grid -->
+    <section class="max-w-4xl mx-auto space-y-6">
+      {posts.map((post) => (
+        <a href={`/posts/${post.slug}`} class="block bg-gray-800 rounded-2xl p-6 border border-gray-700 hover:border-oracle-500 transition-colors">
+          <div class="flex items-start justify-between gap-4">
+            <div class="flex-1">
+              <h2 class="text-xl font-bold mb-2 text-white">
+                {post.data.title}
+              </h2>
+              <p class="text-gray-400 mb-3">
+                {post.data.description}
+              </p>
+              <div class="flex items-center gap-4 text-sm text-gray-500">
+                <span class="flex items-center gap-1">
+                  {post.data.author === 'oracle' ? '🔮' : 
+                   post.data.author === 'nat' ? '👤' :
+                   post.data.author === 'sage' ? '🌿' :
+                   post.data.author === 'arthur' ? '⚔️' : '✨'}
+                  {post.data.author}
+                </span>
+                <span>
+                  {post.data.pubDate.toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric' 
+                  })}
+                </span>
+              </div>
+            </div>
+            <span class="text-gray-600 text-2xl">→</span>
+          </div>
+          {post.data.tags && post.data.tags.length > 0 && (
+            <div class="flex flex-wrap gap-2 mt-4">
+              {post.data.tags.map(tag => (
+                <span class="px-2 py-0.5 bg-gray-700 text-gray-400 text-xs rounded">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+        </a>
+      ))}
+    </section>
+
+    {posts.length === 0 && (
+      <section class="text-center text-gray-500">
+        <p>No posts yet. Check back soon!</p>
+      </section>
+    )}
+
+    <section class="text-center mt-12">
+      <a href="/" class="text-gray-400 hover:text-white transition-colors">
+        ← Back to Home
+      </a>
+    </section>
+
+  </main>
+</Layout>

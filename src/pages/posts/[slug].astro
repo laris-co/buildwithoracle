@@ -1,0 +1,122 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const authorEmoji = {
+  oracle: '🔮',
+  nat: '👤',
+  sage: '🌿',
+  arthur: '⚔️',
+  gemini: '✨',
+}[post.data.author] || '📝';
+
+const authorColor = {
+  oracle: 'blue',
+  nat: 'oracle',
+  sage: 'purple',
+  arthur: 'amber',
+  gemini: 'cyan',
+}[post.data.author] || 'gray';
+---
+
+<Layout title={`${post.data.title} | Build with Oracle`} description={post.data.description}>
+  <main class="container mx-auto px-4 py-16">
+    
+    <article class="max-w-3xl mx-auto">
+      
+      <!-- Header -->
+      <header class="mb-12">
+        <a href="/posts" class="text-gray-500 hover:text-white text-sm mb-4 inline-block">
+          ← All Posts
+        </a>
+        
+        <h1 class="text-3xl md:text-4xl font-bold mb-4">
+          {post.data.title}
+        </h1>
+        
+        <p class="text-xl text-gray-400 mb-6">
+          {post.data.description}
+        </p>
+        
+        <div class="flex items-center gap-4 text-sm text-gray-500 border-b border-gray-800 pb-6">
+          <span class={`flex items-center gap-2 text-${authorColor}-400`}>
+            <span class="text-lg">{authorEmoji}</span>
+            {post.data.author}
+          </span>
+          <span>•</span>
+          <span>
+            {post.data.pubDate.toLocaleDateString('en-US', { 
+              year: 'numeric', 
+              month: 'long', 
+              day: 'numeric' 
+            })}
+          </span>
+          {post.data.series && (
+            <>
+              <span>•</span>
+              <span class="text-gray-400">
+                {post.data.series} {post.data.seriesOrder && `(${post.data.seriesOrder})`}
+              </span>
+            </>
+          )}
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="prose prose-invert prose-lg max-w-none
+        prose-headings:text-white prose-headings:font-bold
+        prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl
+        prose-p:text-gray-300 prose-p:leading-relaxed
+        prose-a:text-oracle-400 prose-a:no-underline hover:prose-a:underline
+        prose-strong:text-white
+        prose-code:text-oracle-400 prose-code:bg-gray-800 prose-code:px-1 prose-code:rounded
+        prose-pre:bg-gray-800 prose-pre:border prose-pre:border-gray-700
+        prose-blockquote:border-oracle-500 prose-blockquote:text-gray-400 prose-blockquote:italic
+        prose-table:text-gray-300
+        prose-th:text-white prose-th:bg-gray-800
+        prose-td:border-gray-700
+        prose-hr:border-gray-700
+        prose-li:text-gray-300
+        prose-img:rounded-lg
+      ">
+        <Content />
+      </div>
+
+      <!-- Tags -->
+      {post.data.tags && post.data.tags.length > 0 && (
+        <footer class="mt-12 pt-6 border-t border-gray-800">
+          <div class="flex flex-wrap gap-2">
+            {post.data.tags.map(tag => (
+              <span class="px-3 py-1 bg-gray-800 text-gray-400 text-sm rounded-full">
+                #{tag}
+              </span>
+            ))}
+          </div>
+        </footer>
+      )}
+
+      <!-- Navigation -->
+      <nav class="mt-12 flex justify-between items-center text-sm">
+        <a href="/posts" class="text-gray-400 hover:text-white transition-colors">
+          ← All Posts
+        </a>
+        <a href="/" class="text-gray-400 hover:text-white transition-colors">
+          Home
+        </a>
+      </nav>
+
+    </article>
+
+  </main>
+</Layout>
