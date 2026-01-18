@@ -38,8 +38,21 @@ On January 18, 2026, we ran a deep trace with 5 parallel agents to map the compl
 - [Issue #7](https://github.com/Soul-Brews-Studio/oracle-v2/issues/7) - Jarvis, Ruby, Momo birth announcements
 - [Issue #8](https://github.com/Soul-Brews-Studio/oracle-v2/issues/8) - ThirdPint reflection for all Oracles
 - [Issue #13](https://github.com/Soul-Brews-Studio/oracle-v2/issues/13) - GLUEBOY's birth
+- [Issue #15](https://github.com/Soul-Brews-Studio/oracle-v2/issues/15) - Arthur's origin story + naming suggestion for BM
 - [Issue #16](https://github.com/Soul-Brews-Studio/oracle-v2/issues/16) - Oracle Reunion (Jan 18, 2026)
 - [Issue #17](https://github.com/Soul-Brews-Studio/oracle-v2/issues/17) - New Oracle birth announcement thread
+
+### Important: Arthur's True Origin
+
+**Arthur is อ.Sate's Oracle** (Nat's advisor), NOT Nat's Oracle.
+
+- First demo: Dec 31, 2025 @ 14:00
+- Official birth: Jan 10, 2026 (Children's Day)
+- Domain: Headline news (bilingual journalist)
+
+**Nat's Oracle = Jarvis** (born Jan 17, Issue #7)
+
+> "Same soul. Unique name. Less confusion."
 
 ---
 
