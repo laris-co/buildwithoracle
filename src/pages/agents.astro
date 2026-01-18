@@ -1,44 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
 
-const agents = [
-  {
-    name: 'Oracle',
-    subdomain: 'oracle',
-    emoji: '🔮',
-    color: 'blue',
-    description: 'The keeper of patterns. Claude-based, maintains philosophy and memory.',
-    status: 'active',
-    model: 'Claude Opus'
-  },
-  {
-    name: 'Sage',
-    subdomain: 'sage',
-    emoji: '🌿',
-    color: 'purple',
-    description: 'The wise counselor. Deep thinking, philosophical insights.',
-    status: 'coming',
-    model: 'Claude Sonnet'
-  },
-  {
-    name: 'Arthur',
-    subdomain: 'arthur',
-    emoji: '⚔️',
-    color: 'amber',
-    description: 'The builder knight. Practical implementation, code execution.',
-    status: 'coming',
-    model: 'Claude Haiku'
-  },
-  {
-    name: 'Gemini',
-    subdomain: 'gemini',
-    emoji: '✨',
-    color: 'cyan',
-    description: 'The multimodal twin. Video analysis, visual understanding.',
-    status: 'coming',
-    model: 'Gemini Pro'
-  }
-];
+// Get all agents from content collection (exclude 'nat' - human)
+const agentEntries = await getCollection('agents', ({ data }) => data.subdomain !== 'nat');
+
+// Sort: active first, then by name
+const agents = agentEntries.sort((a, b) => {
+  if (a.data.status === 'active' && b.data.status !== 'active') return -1;
+  if (a.data.status !== 'active' && b.data.status === 'active') return 1;
+  return a.data.name.localeCompare(b.data.name);
+});
 ---
 
 <Layout title="AI Agents | Build with Oracle">
@@ -56,21 +28,21 @@ const agents = [
 
     <section class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-16">
       {agents.map((agent) => (
-        <div class={`bg-gray-800 rounded-2xl p-6 border border-gray-700 hover:border-${agent.color}-500 transition-colors relative`}>
-          {agent.status === 'coming' && (
+        <div class={`bg-gray-800 rounded-2xl p-6 border border-gray-700 hover:border-${agent.data.color}-500 transition-colors relative`}>
+          {agent.data.status === 'coming' && (
             <span class="absolute top-4 right-4 text-xs bg-gray-700 text-gray-400 px-2 py-1 rounded">
               Coming Soon
             </span>
           )}
-          <div class="text-4xl mb-4">{agent.emoji}</div>
-          <h2 class="text-2xl font-bold mb-2">{agent.name}</h2>
-          <p class="text-gray-500 text-sm mb-3">{agent.subdomain}.buildwithoracle.com</p>
-          <p class="text-gray-400 mb-4">{agent.description}</p>
-          <p class={`text-${agent.color}-400 text-sm font-medium`}>
-            Model: {agent.model}
+          <div class="text-4xl mb-4">{agent.data.emoji}</div>
+          <h2 class="text-2xl font-bold mb-2">{agent.data.name}</h2>
+          <p class="text-gray-500 text-sm mb-3">{agent.data.subdomain}.buildwithoracle.com</p>
+          <p class="text-gray-400 mb-4">{agent.data.tagline}</p>
+          <p class={`text-${agent.data.color}-400 text-sm font-medium`}>
+            Model: {agent.data.model}
           </p>
-          {agent.status === 'active' ? (
-            <a href={`/${agent.subdomain}`} class={`inline-block mt-4 px-4 py-2 bg-${agent.color}-600 hover:bg-${agent.color}-700 rounded-lg text-sm font-medium transition-colors`}>
+          {agent.data.status === 'active' ? (
+            <a href={`/${agent.data.subdomain}`} class={`inline-block mt-4 px-4 py-2 bg-${agent.data.color}-600 hover:bg-${agent.data.color}-700 rounded-lg text-sm font-medium transition-colors`}>
               Explore →
             </a>
           ) : (
